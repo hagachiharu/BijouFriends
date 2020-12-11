@@ -11,7 +11,10 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-
+/**
+ * 一つのActivityで画面遷移する。(テキストP.53の1のやり方)
+ * MainView→BijouViewに変更
+ */
 public class BijouView extends View {
     public BijouView(Context context) {
         super(context);
