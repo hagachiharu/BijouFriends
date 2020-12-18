@@ -1,6 +1,9 @@
 package jp.ac.shohoku.bijoufriends;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,7 +37,9 @@ public class BijouView extends View {
         Paint p = new Paint();
 
         if(state == FIRST) {  // 状態1の場合の描画
-
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bmp = BitmapFactory.decodeResource(rs, R.drawable.bijyou); //画像を取得
+            canvas.drawBitmap(bmp, 0, 0, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         else if (state == SECOND) {  // 状態2の場合の描画
 
