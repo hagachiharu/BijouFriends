@@ -38,8 +38,30 @@ public class BijouView extends View {
 
         if(state == FIRST) {  // 状態1の場合の描画
             Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bmp = BitmapFactory.decodeResource(rs, R.drawable.bijyou); //画像を取得
-            canvas.drawBitmap(bmp, 0, 0, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.bijyou); //画像を取得
+            int w1 = this.getWidth();
+            int h1 = this.getHeight();
+            int w = bijyou.getWidth();
+            int h = bijyou.getHeight();
+            canvas.drawBitmap(bijyou, w1/3-w/3, h1/3-h/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+
+            Resources rt = this.getContext().getResources(); //リソースを取得
+            Bitmap start = BitmapFactory.decodeResource(rt, R.drawable.start); //画像を取得
+            int w2 = this.getWidth();
+            int h2 = this.getHeight();
+            int w3 = start.getWidth();
+            int h3 = start.getHeight();
+            canvas.drawBitmap(start, w1/2-w/2, h1/2-h/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+
+            Resources ru = this.getContext().getResources(); //リソースを取得
+            Bitmap rabbit = BitmapFactory.decodeResource(ru, R.drawable.rabbit); //画像を取得
+            int w4 = this.getWidth();
+            int h4 = this.getHeight();
+            int w5 = rabbit.getWidth();
+            int h5 = rabbit.getHeight();
+            canvas.drawBitmap(rabbit, 1000, 1700, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+
+
         }
         else if (state == SECOND) {  // 状態2の場合の描画
 
