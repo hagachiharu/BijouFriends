@@ -14,6 +14,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.Random;
+
 /**
  * 一つのActivityで画面遷移する。(テキストP.53の1のやり方)
  * MainView→BijouViewに変更
@@ -94,7 +96,8 @@ public class BijouView extends View {
     }
 
     private void drawLv3() {
-        Random rnd = new Rondam（）；
+        Random rnd = new Random();
+        int teachervalue = rnd.nextInt(100);
     }
 
     private void drawLv2() {
