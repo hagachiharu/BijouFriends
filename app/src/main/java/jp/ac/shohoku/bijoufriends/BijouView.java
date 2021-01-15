@@ -94,6 +94,7 @@ public class BijouView extends View {
     }
 
     private void drawLv3() {
+        Random rnd = new Rondam（）；
     }
 
     private void drawLv2() {
