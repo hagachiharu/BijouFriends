@@ -75,7 +75,7 @@ public class BijouView extends View {
         h1 = this.getHeight();
         w = bijyou.getWidth();
         h = bijyou.getHeight();
-        canvas.drawBitmap(bijyou, w1/3-w/3, h1/3-h/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+        canvas.drawBitmap(bijyou, w1/2-w/2, h1/3-h/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
 
         Resources rt = this.getContext().getResources(); //リソースを取得
         Bitmap start = BitmapFactory.decodeResource(rt, R.drawable.start); //画像を取得
