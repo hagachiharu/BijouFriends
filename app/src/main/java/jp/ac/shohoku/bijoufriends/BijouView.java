@@ -96,7 +96,7 @@ public class BijouView extends View {
     }
 
     private void drawLv3() {
-        Random rnd = new Random();
+        Random rnd = new Random(); //乱数
         int teachervalue = rnd.nextInt(100);
     }
 
