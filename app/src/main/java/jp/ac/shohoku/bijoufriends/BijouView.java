@@ -45,11 +45,40 @@ public class BijouView extends View {
 
 
     public BijouView(Context context) {
-
         super(context);
         state = FIRST; // 初めは状態1
+        w1 = this.getWidth();  //this=bijyouview
+        h1 = this.getHeight();
+
     }
 
+    public BijouView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        state = FIRST;
+        w1 = this.getWidth();  //this=bijyouview
+        h1 = this.getHeight();
+
+    }
+
+    public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        state = FIRST;
+        w1 = this.getWidth();  //this=bijyouview
+        h1 = this.getHeight();
+
+    }
+
+    public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int state) {
+        super(context, attrs, defStyleAttr);
+        state = FIRST;
+        w1 = this.getWidth();  //this=bijyouview
+        h1 = this.getHeight();
+    }
+
+    /**
+     * 描画のメソッド
+     * @param canvas
+     */
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
         Paint p = new Paint();
@@ -58,21 +87,24 @@ public class BijouView extends View {
             drawLv1(canvas, p);
         }
         else if (state == SECOND) {  // 状態2の場合の描画
-            drawLv2();
+            drawLv2(canvas, p);
         }
         else if (state == THIRD) {  // 状態3の場合の描画
-            drawLv3();
+            drawLv3(canvas,p);
         }
         else {
             Log.d("error", "never come here");
         }
     }
 
+    /**
+     * Level1の描画
+     * @param canvas
+     * @param p
+     */
     private void drawLv1(Canvas canvas, Paint p) {
         Resources rs = this.getContext().getResources(); //リソースを取得
         Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.bijyou); //画像を取得
-        w1 = this.getWidth();  //this=bijyouview
-        h1 = this.getHeight();
         w = bijyou.getWidth();
         h = bijyou.getHeight();
         canvas.drawBitmap(bijyou, w1/2-w/2, h1/3-h/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
@@ -95,7 +127,16 @@ public class BijouView extends View {
         canvas.drawBitmap(rabbit, 1000, 1700, p); //画像の左上を Canvasの(0,0)に合わせて表示する
     }
 
-    private void drawLv3() {
+    /**
+     * Level2の描画
+     * @param canvas
+     * @param p
+     */
+    private void drawLv2(Canvas canvas, Paint p) {
+        Resources rs = this.getContext().getResources(); //リソースを取得
+        Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.gtyasozai); //画像を取得
+    }
+    private void drawLv3(Canvas canvas, Paint p) {
         Random rnd = new Random(); //乱数
         int teavalue = rnd.nextInt(100);
         if(teavalue>=0&&teavalue<5) {
@@ -128,10 +169,6 @@ public class BijouView extends View {
         }
     }
 
-    private void drawLv2() {
-        Resources rs = this.getContext().getResources(); //リソースを取得
-        Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.gtyasozai); //画像を取得
-    }
 
 
     public boolean onTouchEvent(MotionEvent event){
@@ -169,11 +206,4 @@ public class BijouView extends View {
     }
 
 
-    public BijouView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
 }
