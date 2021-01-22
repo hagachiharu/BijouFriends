@@ -97,10 +97,40 @@ public class BijouView extends View {
 
     private void drawLv3() {
         Random rnd = new Random(); //乱数
-        int teachervalue = rnd.nextInt(100);
+        int teavalue = rnd.nextInt(100);
+        if(teavalue>=0&&teavalue<5) {
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ur_mikako); //画像を取得
+        }
+        if(teavalue>=5&&teavalue<15) {
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ssr_utsumitan); //画像を取得
+        }
+        if(teavalue>=15&&teavalue<29){
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.sr_akio); //画像を取得
+        }
+        if(teavalue>=30&&teavalue<44){
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.sr_ayuko); //画像を取得
+        }
+        if(teavalue>=45&&teavalue<49){
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ur_kiyotan); //画像を取得
+        }
+        if(teavalue>=50&&teavalue<74){
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.r_ishizaki); //画像を取得
+        }
+        if(teavalue>=75&teavalue<99){
+            Resources rs = this.getContext().getResources(); //リソースを取得
+            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.r_onome); //画像を取得
+        }
     }
 
     private void drawLv2() {
+        Resources rs = this.getContext().getResources(); //リソースを取得
+        Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.gtyasozai); //画像を取得
     }
 
 
