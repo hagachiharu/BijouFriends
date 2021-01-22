@@ -100,7 +100,7 @@ public class BijouView extends View {
         int teavalue = rnd.nextInt(100);
         if(teavalue>=0&&teavalue<5) {
             Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ur_mikako); //画像を取得
+            Bitmap ur_mikako = BitmapFactory.decodeResource(rs, R.drawable.ur_mikako); //画像を取得
         }
         if(teavalue>=5&&teavalue<15) {
             Resources rs = this.getContext().getResources(); //リソースを取得
