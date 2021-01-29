@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,52 +26,42 @@ public class BijouView extends View {
 
     int state;  // 状態を表す変数
 
-    int w1;//画面の幅
-    int h1;//画面の高さ
+    int displayWidth;//画面の幅
+    int displayHeight;//画面の高さ
+
+    Resources res; //リソース
+    Bitmap start; //スタート用のタップする画像
+    Bitmap gacha; //ガチャ用のタップする画像
+
     int w; //画像の幅
     int h; //画像の高さ
 
-    int w2;
-    int h2;
-    int w3;
-    int h3;
-
-    int w4;
-    int h4;
-    int w5;
-    int h5;
-
-
-
     public BijouView(Context context) {
         super(context);
-        state = FIRST; // 初めは状態1
-        w1 = this.getWidth();  //this=bijyouview
-        h1 = this.getHeight();
-
+        init();
     }
-
     public BijouView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        state = FIRST;
-        w1 = this.getWidth();  //this=bijyouview
-        h1 = this.getHeight();
-
+        init();
     }
-
     public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        state = FIRST;
-        w1 = this.getWidth();  //this=bijyouview
-        h1 = this.getHeight();
-
+        init();
+    }
+        public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int state) {
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
-    public BijouView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int state) {
-        super(context, attrs, defStyleAttr);
-        state = FIRST;
-        w1 = this.getWidth();  //this=bijyouview
-        h1 = this.getHeight();
+    /**
+     * 初期化用メソッド
+     */
+    private void init() {
+        state = FIRST; // 初めは状態1
+
+        res = this.getContext().getResources(); //リソースを取得
+        start = BitmapFactory.decodeResource(res, R.drawable.start); //スタート画像を取得
+        gacha = BitmapFactory.decodeResource(res, R.drawable.gtyasozai); //ガチャの画像を取得
     }
 
     /**
@@ -82,14 +71,19 @@ public class BijouView extends View {
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
         Paint p = new Paint();
+        displayWidth = this.getWidth();
+        displayHeight = this.getHeight();
 
         if(state == FIRST) {  // 状態1の場合の描画
+            canvas.drawARGB(255,255,255,255); //キャンバスを白で塗りつぶす
             drawLv1(canvas, p);
         }
         else if (state == SECOND) {  // 状態2の場合の描画
+            canvas.drawARGB(255,255,255,255); //キャンバスを白で塗りつぶす
             drawLv2(canvas, p);
         }
         else if (state == THIRD) {  // 状態3の場合の描画
+            canvas.drawARGB(255,255,255,255); //キャンバスを白で塗りつぶす
             drawLv3(canvas,p);
         }
         else {
@@ -103,28 +97,14 @@ public class BijouView extends View {
      * @param p
      */
     private void drawLv1(Canvas canvas, Paint p) {
-        Resources rs = this.getContext().getResources(); //リソースを取得
-        Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.bijyou); //画像を取得
-        w = bijyou.getWidth();
-        h = bijyou.getHeight();
-        canvas.drawBitmap(bijyou, w1/2-w/2, h1/3-h/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+        Bitmap title = BitmapFactory.decodeResource(res, R.drawable.bijyou); //画像を取得
+        int titleWidth = title.getWidth();
+        int titleHeight = title.getHeight();
+        canvas.drawBitmap(title, displayWidth /2-titleWidth/2, displayHeight /3-titleHeight/3, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+        canvas.drawBitmap(start, displayWidth /2-start.getWidth()/2, displayHeight /2-start.getHeight()/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
 
-        Resources rt = this.getContext().getResources(); //リソースを取得
-        Bitmap start = BitmapFactory.decodeResource(rt, R.drawable.start); //画像を取得
-        w2 = this.getWidth();
-        h2 = this.getHeight();
-        w3 = start.getWidth();
-        h3 = start.getHeight();
-        canvas.drawBitmap(start, w1/2-w/2, h1/2-h/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
-
-
-        Resources ru = this.getContext().getResources(); //リソースを取得
-        Bitmap rabbit = BitmapFactory.decodeResource(ru, R.drawable.rabbit); //画像を取得
-        w4 = this.getWidth();
-        h4 = this.getHeight();
-        w5 = rabbit.getWidth();
-        h5 = rabbit.getHeight();
-        canvas.drawBitmap(rabbit, 1000, 1700, p); //画像の左上を Canvasの(0,0)に合わせて表示する
+        Bitmap rabbit = BitmapFactory.decodeResource(res, R.drawable.rabbit); //画像を取得
+        canvas.drawBitmap(rabbit, 50, 800, p); //画像の左上を Canvasの(0,0)に合わせて表示する
     }
 
     /**
@@ -133,51 +113,59 @@ public class BijouView extends View {
      * @param p
      */
     private void drawLv2(Canvas canvas, Paint p) {
-        Resources rs = this.getContext().getResources(); //リソースを取得
-        Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.gtyasozai); //画像を取得
+        canvas.drawBitmap(gacha, (displayWidth-gacha.getWidth())/2, (displayHeight-gacha.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
     }
+
+    /**
+     * Level3の描画
+     * @param canvas
+     * @param p
+     */
     private void drawLv3(Canvas canvas, Paint p) {
         Random rnd = new Random(); //乱数
         int teavalue = rnd.nextInt(100);
         if(teavalue>=0&&teavalue<5) {
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap ur_mikako = BitmapFactory.decodeResource(rs, R.drawable.ur_mikako); //画像を取得
+            Bitmap ur_mikako = BitmapFactory.decodeResource(res, R.drawable.ur_mikako); //画像を取得
+            canvas.drawBitmap(ur_mikako, (displayWidth-ur_mikako.getWidth())/2, (displayHeight-ur_mikako.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=5&&teavalue<15) {
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ssr_utsumitan); //画像を取得
+            Bitmap ssr_utsumitan = BitmapFactory.decodeResource(res, R.drawable.ssr_utsumitan); //画像を取得
+            canvas.drawBitmap(ssr_utsumitan, (displayWidth-ssr_utsumitan.getWidth())/2, (displayHeight-ssr_utsumitan.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=15&&teavalue<29){
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.sr_akio); //画像を取得
+            Bitmap sr_akio = BitmapFactory.decodeResource(res, R.drawable.sr_akio); //画像を取得
+            canvas.drawBitmap(sr_akio, (displayWidth-sr_akio.getWidth())/2, (displayHeight-sr_akio.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=30&&teavalue<44){
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.sr_ayuko); //画像を取得
+            Bitmap sr_ayuko = BitmapFactory.decodeResource(res, R.drawable.sr_ayuko); //画像を取得
+            canvas.drawBitmap(sr_ayuko, (displayWidth-sr_ayuko.getWidth())/2, (displayHeight-sr_ayuko.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=45&&teavalue<49){
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.ur_kiyotan); //画像を取得
+            Bitmap ur_kiyotan = BitmapFactory.decodeResource(res, R.drawable.ur_kiyotan); //画像を取得
+            canvas.drawBitmap(ur_kiyotan, (displayWidth-ur_kiyotan.getWidth())/2, (displayHeight-ur_kiyotan.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=50&&teavalue<74){
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.r_ishizaki); //画像を取得
+            Bitmap r_ishizaki = BitmapFactory.decodeResource(res, R.drawable.r_ishizaki); //画像を取得
+            canvas.drawBitmap(r_ishizaki, (displayWidth-r_ishizaki.getWidth())/2, (displayHeight-r_ishizaki.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
         if(teavalue>=75&teavalue<99){
-            Resources rs = this.getContext().getResources(); //リソースを取得
-            Bitmap bijyou = BitmapFactory.decodeResource(rs, R.drawable.r_onome); //画像を取得
+            Bitmap r_onome = BitmapFactory.decodeResource(res, R.drawable.r_onome); //画像を取得
+            canvas.drawBitmap(r_onome, (displayWidth-r_onome.getWidth())/2, (displayHeight-r_onome.getWidth())/2, p); //画像の左上を Canvasの(0,0)に合わせて表示する
         }
     }
-
-
 
     public boolean onTouchEvent(MotionEvent event){
         int x = (int) event.getX();  // タップされた位置を取得
         int y = (int) event.getY();
+        Log.d("tap", "dipsplay is tapped!!");
+        Log.d("location", "x="+x+",y="+y);
+        Log.d("disp size", "dw="+displayWidth+",dh="+displayHeight);
 
         if(state == FIRST) {  // 状態1だったら状態2へ
-            //四角の中だったら状態をSECONDに変える
-            if (w2<=x&&x<=w2+w3&&h2<=h3&&y<=h3+h2){
+            //スタート画像を押したら状態をSECONDに変える
+            int x1 = (displayWidth-start.getWidth())/2;
+            int y1 = (displayHeight-start.getHeight())/2;
+            if (x1<=x && x<=x1+start.getWidth() && y1<=y && y<=y1+start.getHeight()){
                 state = SECOND;
             }
         }
