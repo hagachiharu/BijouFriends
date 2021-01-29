@@ -32,6 +32,7 @@ public class BijouView extends View {
     Resources res; //リソース
     Bitmap start; //スタート用のタップする画像
     Bitmap gacha; //ガチャ用のタップする画像
+    Bitmap teacher;
 
     int w; //画像の幅
     int h; //画像の高さ
@@ -62,6 +63,7 @@ public class BijouView extends View {
         res = this.getContext().getResources(); //リソースを取得
         start = BitmapFactory.decodeResource(res, R.drawable.start); //スタート画像を取得
         gacha = BitmapFactory.decodeResource(res, R.drawable.gachasozai); //ガチャの画像を取得
+        teacher = BitmapFactory.decodeResource(res, R.drawable.ur_mikako);
     }
 
     /**
@@ -181,6 +183,11 @@ public class BijouView extends View {
         else if(state == THIRD){  // 状態3だったら状態1へ
             //state = FIRST;
             touchLv3();
+            int x2 = (displayWidth-teacher.getWidth())/2;
+            int y2 = (displayHeight-teacher.getHeight())/2;
+            if (x2<=x && x<=x2+teacher.getWidth() && y2<=y && y<=y2+teacher.getHeight()){
+                state = FIRST;
+            }
         }
         else{  // それ以外だったらエラーを吐き出す
             Log.d("error", "never come here");
